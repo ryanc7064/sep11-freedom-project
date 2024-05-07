@@ -9,21 +9,127 @@
         <link href="style.css" rel="stylesheet" type="text/css" />
         <style>
             /* CSS */
-            
+
         </style>
-        
+
         <title>Title</title>
     </head>
     <body>
         <!-- HTML -->
-        
-        
+
+
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="https://unpkg.com/kaboom@3000.0.1/dist/kaboom.js"></script>
         <!-- <script src="script.js"></script> -->
         <script>
             // JS
-            
-            
+
+kaboom()
+
+setBackground(141, 183, 255)
+
+loadSprite("bean", "/sprites/bean.png")
+loadSound("score", "/examples/sounds/score.mp3")
+
+scene("game", () => {
+
+	const PIPE_OPEN = 240
+	const PIPE_MIN = 60
+	const JUMP_FORCE = 800
+	const SPEED = 500
+	const BLOCK_SPEED = 500
+	const CEILING = -60
+
+const bean = add([
+	sprite("bean"),
+	pos(center()),
+])
+
+onKeyDown("left", () => {
+	player.move(-SPEED, 0)
+})
+
+onKeyDown("right", () => {
+	player.move(SPEED, 0)
+})
+
+onKeyDown("up", () => {
+	player.move(0, -SPEED)
+})
+
+onKeyDown("down", () => {
+	player.move(0, SPEED)
+})
+
+	function spawnPipe() {
+
+		const h1 = rand(PIPE_MIN, height() - PIPE_MIN - PIPE_OPEN)
+		const h2 = height() - h1 - PIPE_OPEN
+
+		add([
+			pos(width(), 0),
+			rect(64, h1),
+			color(0, 127, 255),
+			outline(4),
+			area(),
+			move(LEFT, BLOCK_SPEED),
+			offscreen({ destroy: true }),
+			"pipe",
+		])
+
+		add([
+			pos(width(), h1 + PIPE_OPEN),
+			rect(64, h2),
+			color(0, 127, 255),
+			outline(4),
+			area(),
+			move(LEFT, BLOCK_SPEED),
+			offscreen({ destroy: true }),
+			"pipe",
+			{ passed: false },
+		])
+
+	}
+
+
+	onUpdate("pipe", (p) => {
+		if (p.pos.x + p.width <= bean.pos.x && p.passed === false) {
+			addScore()
+			p.passed = true
+		}
+	})
+
+	loop(2, () => {
+		spawnPipe()
+	})
+
+	let score = 0
+
+	const scoreLabel = add([
+		text(score),
+		anchor("center"),
+		pos(width() / 2, 80),
+		fixed(),
+		z(100),
+	])
+
+	function addScore() {
+		score++
+		scoreLabel.text = score
+		play("score")
+	}
+
+})
+
+scene("lose", (score) => {
+
+	onKeyPress("space", () => go("game"))
+	onClick(() => go("game"))
+
+})
+
+go("game")
+
         </script>
     </body>
 </html>
