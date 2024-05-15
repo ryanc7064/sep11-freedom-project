@@ -1,28 +1,4 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="style.css" rel="stylesheet" type="text/css" />
-        <style>
-            /* CSS */
-
-        </style>
-
-        <title>Title</title>
-    </head>
-    <body>
-        <!-- HTML -->
-
-
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-		<script src="https://unpkg.com/kaboom@3000.0.1/dist/kaboom.js"></script>
-        <!-- <script src="script.js"></script> -->
-        <script>
-            // JS
+import kaboom from "kaboom"
 
 kaboom()
 
@@ -44,8 +20,9 @@ const dino = add([
 	sprite("dino"),
 	pos(center()),
 	area(),
-	scale(.2),
+	scale(),
 	body(),
+	layer("game"),
 ])
 
 onKeyDown("left", () => {
@@ -149,7 +126,3 @@ scene("lose", (score) => {
 
 go("game")
 
-
-        </script>
-    </body>
-</html>
