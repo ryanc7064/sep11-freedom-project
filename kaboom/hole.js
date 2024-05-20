@@ -5,7 +5,6 @@ kaboom()
 setBackground(220, 220, 220)
 
 loadSprite("dino", "sprites/dino.png");
-// loadSound("score", "/examples/sounds/score.mp3")
 
 scene("game", () => {
 
@@ -78,23 +77,19 @@ onKeyDown("down", () => {
 		}
 	})
 
-	// callback when bean onCollide with objects with tag "pipe"
 	dino.onCollide("pipe", () => {
-		go("lose", score)
-		// play("hit")
+		go("gameOver", score)
 		addKaboom(dino.pos)
 	})
 
-	// per frame event for all objects with tag 'pipe'
 	onUpdate("pipe", (p) => {
-		// check if bean passed the pipe
 		if (p.pos.x + p.width <= dino.pos.x && p.passed === false) {
 			addScore()
 			p.passed = true
 		}
 	})
 
-	loop(1, () => {
+	loop(.75, () => {
 		spawnPipe()
 	})
 
@@ -117,12 +112,34 @@ onKeyDown("down", () => {
 
 })
 
-scene("lose", (score) => {
+scene("gameOver", (score) => {
 
-	onKeyPress("space", () => go("game"))
-	onClick(() => go("game"))
+add([
+	text("GAME OVER", 48),
+	pos(center().x, center().y - 50),
+	anchor("center"),
+	color(255, 0, 0),
+])
+
+add([
+	text("Press any key or click the mouse to restart", 32),
+	pos(center().x, center().y + 70),
+	anchor("center"),
+	color(0, 0, 0),
+])
+
+add([
+	text(`Score: ${score}`, 32),
+	pos(center().x, center().y + 10),
+	anchor("center"),
+	color(255, 255, 255),
+])
+
+onKeyPress("space", () => go("game"))
+onClick(() => go("game"))
 
 })
 
 go("game")
+
 
