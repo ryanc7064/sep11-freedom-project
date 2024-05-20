@@ -2,7 +2,7 @@ import kaboom from "kaboom"
 
 kaboom()
 
-setBackground(141, 183, 255)
+setBackground(255, 255, 255)
 
 loadSprite("dino", "/sprites/dino.png");
 // loadSound("score", "/examples/sounds/score.mp3")
@@ -49,7 +49,7 @@ onKeyDown("down", () => {
 		add([
 			pos(width(), 0),
 			rect(64, h1),
-			color(0, 127, 255),
+			color(rand(255), rand(255), rand(255)),
 			outline(4),
 			area(),
 			move(LEFT, BLOCK_SPEED),
@@ -60,7 +60,7 @@ onKeyDown("down", () => {
 		add([
 			pos(width(), h1 + PIPE_OPEN),
 			rect(64, h2),
-			color(0, 127, 255),
+			color(rand(255), rand(255), rand(255)),
 			outline(4),
 			area(),
 			move(LEFT, BLOCK_SPEED),
