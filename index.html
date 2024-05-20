@@ -141,10 +141,24 @@ onKeyDown("down", () => {
 
 })
 
-scene("lose", (score) => {
+scene("gameOver", (score) => {
 
-	onKeyPress("space", () => go("game"))
-	onClick(() => go("game"))
+add([
+	text("GAME OVER", 48),
+	pos(center().x, center().y - 50),
+	anchor("center"),
+	color(255, 0, 0),
+])
+
+add([
+	text(`Score: ${score}`, 32),
+	pos(center().x, center().y + 10),
+	anchor("center"),
+	color(255, 255, 255),
+])
+
+onKeyPress("space", () => go("game"))
+onClick(() => go("game"))
 
 })
 
