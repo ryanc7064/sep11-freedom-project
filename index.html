@@ -104,7 +104,7 @@ onKeyDown("down", () => {
 
 	// callback when bean onCollide with objects with tag "pipe"
 	dino.onCollide("pipe", () => {
-		go("lose", score)
+		go("gameOver", score)
 		// play("hit")
 		addKaboom(dino.pos)
 	})
