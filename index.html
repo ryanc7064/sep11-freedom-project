@@ -37,7 +37,7 @@ scene("game", () => {
 	const PIPE_MIN = 60
 	const JUMP_FORCE = 800
 	const SPEED = 500
-	const BLOCK_SPEED = 500
+	let BLOCK_SPEED = 500
 	const CEILING = -60
 
 const dino = add([
@@ -136,6 +136,7 @@ onKeyDown("down", () => {
 		score++
 		scoreLabel.text = score
 		// play("score")
+		BLOCK_SPEED += 10
 	}
 
 })
