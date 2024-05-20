@@ -2,9 +2,9 @@ import kaboom from "kaboom"
 
 kaboom()
 
-setBackground(255, 255, 255)
+setBackground(220, 220, 220)
 
-loadSprite("dino", "/sprites/dino.png");
+loadSprite("dino", "sprites/dino.png");
 // loadSound("score", "/examples/sounds/score.mp3")
 
 scene("game", () => {
@@ -13,16 +13,15 @@ scene("game", () => {
 	const PIPE_MIN = 60
 	const JUMP_FORCE = 800
 	const SPEED = 500
-	const BLOCK_SPEED = 500
+	let BLOCK_SPEED = 500
 	const CEILING = -60
 
 const dino = add([
 	sprite("dino"),
 	pos(center()),
 	area(),
-	scale(),
+	scale(.2),
 	body(),
-	layer("game"),
 ])
 
 onKeyDown("left", () => {
@@ -95,7 +94,7 @@ onKeyDown("down", () => {
 		}
 	})
 
-	loop(2, () => {
+	loop(1, () => {
 		spawnPipe()
 	})
 
@@ -113,6 +112,7 @@ onKeyDown("down", () => {
 		score++
 		scoreLabel.text = score
 		// play("score")
+		BLOCK_SPEED += 10
 	}
 
 })
